@@ -1,3 +1,4 @@
+// Dados
 const proffys = [
     {
         name: "Diego Fernandes",
@@ -22,6 +23,35 @@ const proffys = [
         time_to: [1220]
     },
 ]
+const subjects = [
+    "Artes",
+    "Biologia",
+    "Ciências",
+    "Educação física",
+    "Física",
+    "Geografia",
+    "História",
+    "Matemática",
+    "Português",
+    "Química",
+];
+
+const weekdays = [
+    "Domingo",
+    "Segunda-feira",
+    "Terça-feira",
+    "Quarta-feira",
+    "Quinta-feira",
+    "Sexta-feira",
+    "Sábado",
+]
+
+// Funcionalidades
+
+function getSubject(subjectNumber) {
+    const position = +subjectNumber - 1
+    return subjects[position];
+}
 
 
 function pageLanding(req, res) {
@@ -32,15 +62,34 @@ function pageLanding(req, res) {
     return res.render("index.html");
 }
 
-function pageStudy(req, res) {
-    return res.render("study.html", { proffys })
-}
 
 function pageGiveClasses(req, res) {
-    return res.render("give-classes.html")
+    const data = req.query //faz a busca pelo name definido no html
+
+    const isNotEmpty = Object.keys(data).length > 0;
+    // se tiver dados (data)
+    if (isNotEmpty) {
+
+        data.subject = getSubject(data.subject);
+        
+        // adicionar dados a lista de profys
+        proffys.push(data);
+        
+        return res.redirect('/study')
+    };
+    
+    // se não, não adicionar
+    return res.render("give-classes.html", { subjects, weekdays })
+    
 }
 
 
+function pageStudy(req, res) {
+    const filters = req.query
+    return res.render("study.html", { proffys, filters, subjects, weekdays })
+}
+
+// servidor
 const express = require('express');
 const server = express();
 
@@ -52,12 +101,14 @@ nunjucks.configure('src/views', {
     noCache: true,
 })
 
-//configurar arquivos estáticos (css, scripts, imagens)
+// Inicio e configuração do servidor
 server
-.use(express.static("public"))
-// rotas da aplicação
-.get('/', pageLanding)
-.get('/study', pageStudy)
-.get('/give-classes', pageGiveClasses)
-.listen(5500);
+    //configurar arquivos estáticos (css, scripts, imagens)
+    .use(express.static("public"))
+    // rotas da aplicação
+    .get('/', pageLanding)
+    .get('/study', pageStudy)
+    .get('/give-classes', pageGiveClasses)
+    // start do servidor
+    .listen(5500);
 
