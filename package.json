@@ -1,20 +1,27 @@
 {
-  "name": "NLW-2---Rocketseat",
+  "name": "nlw-2--rocketseat",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rnatu/NLW-2---Rocketseat.git"
+    "url": "git+https://github.com/rnatu/nlw-2--rocketseat.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rnatu/NLW-2---Rocketseat/issues"
+    "url": "https://github.com/rnatu/nlw-2--rocketseat/issues"
   },
-  "homepage": "https://github.com/rnatu/NLW-2---Rocketseat#readme"
+  "homepage": "https://github.com/rnatu/nlw-2--rocketseat#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nunjucks": "^3.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
