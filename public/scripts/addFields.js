@@ -13,11 +13,10 @@ function cloneField() {
     const fields = newFieldContainer.querySelectorAll('input');
 
     //limpando os valores dos inputs 0 e 1 (campos)
-    fields.forEach((idx) =>{
+    fields.forEach((idx) => {
         idx.value = "";
     })
 
     // Colocar na página (onde colocar)
     document.querySelector('#schedule-items').appendChild(newFieldContainer);
-
 }
